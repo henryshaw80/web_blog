@@ -1,0 +1,10 @@
+Python web blog from Udemy course by Jose Salvatierra
+
+Server-side
+Language: Python
+Database: Mongodb
+Package: Pymongo, Flask
+
+Client-side
+markup language: Jinja2
+CSS3, HTML 5, JavaScript
