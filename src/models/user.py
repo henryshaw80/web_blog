@@ -1,7 +1,7 @@
 import uuid
 
 import _datetime
-from Flask import session
+from flask import session
 from src.common.database import Database
 from src.models.blog import Blog
 
