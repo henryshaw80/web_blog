@@ -3,8 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Fancy blog</title>
+
+    <!-- define a link to stylesheet with following reference
+      a static css folder and the file name is main.css -->
+    <!-- first code: not using url_for method
+    from template folder, we go up to src folder, then go down to static and css
+    href=".." is going up a directory to src folder
+    <link rel="stylesheet" href="../static//css/main.css"/>
+    however, this would be problematic if we move the folder to another folder
+    we need to update the location for each reference code.-->
+    <!-- second code: using url_for method
+    because we use Jinja2 for Flask, we ask them to find the folder static for us-->
+    <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}"/>
 </head>
 <body>
+<!-- pull the content from login.html -->
 {% block content %}
 
 {% endblock %}
