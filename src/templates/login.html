@@ -1,8 +1,14 @@
+<!-- linking to base.html -->
 {% extends "base.html" %}
+<!-- insert the form inside block -->
 {% block content %}
-    <form>
-        <input type="text" id="email">
-        <input type="password" id="password">
+    <!-- action: send data to 'login' page -->
+    <!-- method:  -->
+    <form id="login-form" action="/auth/login" method="post">
+        <!-- name is used to associate this value with a
+        specific field name -->
+        <input type="text" id="email" name="email">
+        <input type="password" id="password" name="password">
 
         <input type="submit" id="submit-button">
     </form>
