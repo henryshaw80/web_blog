@@ -4,12 +4,26 @@
 {% block content %}
     <!-- action: send data to 'login' page -->
     <!-- method:  -->
-    <form id="register-form" action="/auth/register" method="post">
-        <!-- name is used to associate this value with a
-        specific field name -->
-        <input type="text" id="email" name="email">
-        <input type="password" id="password" name="password">
+    <div class="container page-form">
+        <form id="login-form" action="/auth/register" method="post">
+            <!-- a div is a block that occupies full width (from left to right) -->
+            <div class="form-group has-success has-feedback">
+                <!-- name is used to associate this value with a
+                specific field name -->
+                <label class="control-label" for="email">Email: </label>
+                <div class="input-group">
+                    <span class="input-group-addon">@</span>
+                    <input type="text" id="email" class="form-control" name="email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password: </label>
+                <input type="password" id="password" class="form-control" name="password">
+            </div>
 
-        <input type="submit" id="submit-button">
-    </form>
+            <!-- Inside the class parameter there are three classes:
+                btn  btn-success  pull-left-->
+            <button type="submit" class="btn btn-success pull-left">Sign up</button>
+        </form>
+    </div>
 {% endblock %}
