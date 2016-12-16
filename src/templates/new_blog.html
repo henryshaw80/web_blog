@@ -1,0 +1,24 @@
+<!-- linking to base.html -->
+{% extends "base.html" %}
+<!-- insert the form inside block -->
+{% block content %}
+    <!-- action: send data to 'login' page -->
+    <!-- method:  -->
+    <div class="container">
+        <form id="new-blog" action="/blogs/new" method="post">
+            <!-- a div is a block that occupies full width (from left to right) -->
+            <div class="form-group">
+                <label for="title">Title: </label>
+                <input type="text" id="title" class="form-control" name="title">
+            </div>
+            <div class="form-group">
+                <label for="description">Description: </label>
+                <input type="text" id="description" class="form-control" name="description">
+            </div>
+
+            <!-- Inside the class parameter there are three classes:
+                btn  btn-success  pull-left-->
+            <button type="submit" class="btn btn-success pull-left">Create blog</button>
+        </form>
+    </div>
+{% endblock %}
