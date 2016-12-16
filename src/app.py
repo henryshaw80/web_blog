@@ -1,6 +1,6 @@
 __author__ = "Timur"
 
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, make_response
 from src.models.user import User
 from src.common.database import Database
 from src.models.blog import Blog
@@ -86,6 +86,31 @@ def user_blogs(user_id=None):
 
     # render blogs to display blogs list
     return render_template("user_blogs.html", blogs=blogs, email=user.email)
+
+# Create a blog (by an logged-in user), we don't need user_id
+# User will reach this end point either from 'POST' or 'GET'
+# If method is 'POST', user pressed submit button,
+# end point gets reached by some data and create a blog
+# If method is 'GET', user just arrived at the end point,
+# end point gets reach by no data
+@app.route('/blogs/new', methods=['POST','GET'])
+def create_new_blog():
+    if request.method == 'GET':
+        return render_template('new_blog.html')
+    else:
+        # create a new blog
+        title = request.form['title']
+        description = request.form['description']
+        user = User.get_by_email(session['email'])
+
+        new_blog = Blog(user.email, title, description, user._id)
+        new_blog.save_to_mongo()
+
+        # once a blog has been created, user would be redirected
+        # to his or her new blog
+        return make_response(user_blogs(user._id))
+        # the method will return
+        # render_template("user_blogs.html", blogs=blogs, email=user.email)
 
 # Post lists, once user has access to his or her blog
 @app.route('/posts/<string:blog_id>')
