@@ -1,0 +1,16 @@
+<!-- linking to base.html -->
+{% extends "base.html" %}
+<!-- insert the form inside block -->
+{% block content %}
+<div class="container">
+    <h2>{{ email }}'s blogs</h2>
+    <!-- if using Pycharm professional edition, one
+    get proper Jinja2 attributes and highlights -->
+    {% for blog in blogs %}
+        <h3><a href="/posts/{{blog._id}}">{{ blog.title }}</a></h3>
+        <p>{{ blog.description }}</p>
+        <!-- hr: horizontal rule (i.e. line) -->
+        <hr>
+    {% endfor %}
+</div>
+{% endblock %}
