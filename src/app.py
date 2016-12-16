@@ -3,6 +3,7 @@ __author__ = "Timur"
 from flask import Flask, render_template, request, session
 from src.models.user import User
 from src.common.database import Database
+from src.models.blog import Blog
 
 # Blog, Post and User models
 # Database class
@@ -69,6 +70,30 @@ def register_user():
     # render template with data from application
     return render_template("profile.html", email=session['email'])
 
+# Blogs list
+@app.route('/blogs/<string:user_id>') # if we reach this route, user_id will be used
+@app.route('/blogs/') #if we reach this route, user_id will be None, find using email
+def user_blogs(user_id=None):
+    if user_id is not None:
+       # find user with his or her id
+        user = User.get_by_id(user_id)
+    else:
+        # we are accessing own blog. that's why we query using email
+        user = User.get_by_email(session['email'])
+
+    # get his or her blogs
+    blogs = user.get_blogs()
+
+    # render blogs to display blogs list
+    return render_template("user_blogs.html", blogs=blogs, email=user.email)
+
+# Post lists, once user has access to his or her blog
+@app.route('/posts/<string:blog_id>')
+def blog_posts(blog_id):
+    blog = Blog.from_mongo(blog_id)
+    posts = blog.get_posts()
+
+    return render_template('post.html', posts=posts, blog_title=blog.title)
 
 # if the process is equal to starting point, run the app
 # if there are other process that already run
