@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, session, make_response
 from src.models.user import User
 from src.common.database import Database
 from src.models.blog import Blog
+from src.models.post import Post
 
 # Blog, Post and User models
 # Database class
@@ -49,13 +50,16 @@ def login_user():
     password = request.form['password']
     # checking validity of the email
     if User.login_valid(email, password):
+        # return boolean TRUE
         User.login(email)
+        # render template with data from application
+        return render_template("profile.html", email=session['email'])
     else:
         # when email is not valid
         session['email'] = None
+        # render template with data from application
+        return render_template("login_fail.html")
 
-    # render template with data from application
-    return render_template("profile.html", email=session['email'])
 
 # Registration page
 @app.route('/auth/register', methods=['POST'])
@@ -118,7 +122,27 @@ def blog_posts(blog_id):
     blog = Blog.from_mongo(blog_id)
     posts = blog.get_posts()
 
-    return render_template('post.html', posts=posts, blog_title=blog.title)
+    return render_template('post.html', posts=posts, blog_title=blog.title, blog_id=blog._id)
+
+@app.route('/posts/new/<string:blog_id>', methods=['POST','GET'])
+def create_new_post(blog_id):
+    if request.method == 'GET':
+        return render_template('new_post.html', blog_id=blog_id)
+    else:
+        # create a new blog
+        title = request.form['title']
+        content = request.form['content']
+        user = User.get_by_email(session['email'])
+
+        new_post = Post(blog_id, title, content, user.email)
+        new_post.save_to_mongo()
+
+        # once a blog has been created, user would be redirected
+        # to his or her new blog posts
+        return make_response(blog_posts(blog_id))
+        # the method will return
+        # render_template("post.html", posts=posts, blog_title=blog.title, blog_id=blog._id)
+
 
 # if the process is equal to starting point, run the app
 # if there are other process that already run
