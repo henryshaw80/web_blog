@@ -4,6 +4,14 @@
 {% block content %}
 <div class="container">
     <h2>{{ blog_title }}</h2>
+    <!-- a button the direct to create new post link -->
+    <!-- put the anchor outside of a button
+    <a href="/posts/new/{{ blog_id }}"><button class="btn btn-primary">New post</button></a>
+    -->
+    <a href="/posts/new/{{ blog_id }}" class="btn btn-primary">New post</a>
+
+    <!-- Back to blogs -->
+    <a class="btn btn-info" href="/blogs" role="button">Blogs</a>
     <!-- if posts' length greater than zero -->
     {% if posts|length > 0 %}
         <!-- list posts -->
