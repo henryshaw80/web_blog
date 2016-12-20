@@ -5,25 +5,21 @@
     <!-- action: send data to 'login' page -->
     <!-- method:  -->
     <div class="container page-form">
+        <h2>Please sign in</h2>
         <form id="login-form" action="/auth/login" method="post">
             <!-- a div is a block that occupies full width (from left to right) -->
-            <div class="form-group has-success has-feedback">
+            <div class="form-group">
                 <!-- name is used to associate this value with a
                 specific field name -->
-                <label class="control-label" for="email">Email: </label>
-                <div class="input-group">
-                    <span class="input-group-addon">@</span>
-                    <input type="text" id="email" class="form-control" name="email">
-                </div>
+                <input type="email" id="email" class="form-control" name="email" placeholder="Email address">
             </div>
             <div class="form-group">
-                <label for="password">Password: </label>
-                <input type="password" id="password" class="form-control" name="password">
+                <input type="password" id="password" class="form-control" name="password" placeholder="Password">
             </div>
 
-            <!-- Inside the class parameter there are three classes:
-                btn  btn-info  pull-left-->
-            <button type="submit" class="btn btn-info pull-left">Log in</button>
+            <!-- Inside the class parameter there are four classes:
+                btn btn-info btn-block pull-left-->
+            <button type="submit" class="btn btn-info btn-block pull-left">Log in</button>
         </form>
     </div>
 {% endblock %}
