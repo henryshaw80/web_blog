@@ -1,0 +1,34 @@
+<!-- linking to base.html -->
+{% extends "base.html" %}
+<!-- insert the form inside block -->
+{% block content %}
+    <!-- action: send data to 'login' page -->
+    <!-- method:  -->
+    <div class="container page-form">
+        <h2>Please sign in</h2>
+        <form id="login-form" action="/auth/login" method="post">
+            <!-- a div is a block that occupies full width (from left to right) -->
+            <div class="form-group">
+                <!-- name is used to associate this value with a
+                specific field name -->
+                <input type="email" id="email" class="form-control" name="email" placeholder="Email address">
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" class="form-control" name="password" placeholder="Password">
+            </div>
+
+            <!-- Inside the class parameter there are four classes:
+                btn btn-info btn-block pull-left-->
+            <button type="submit" class="btn btn-info btn-block pull-left">Log in</button>
+        </form>
+
+        <div class="alert alert-warning alert-block alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Warning!</strong> <span>We're sorry, it seems the email password combination you entered is incorrect.
+            Please try again.</span>
+        </div>
+
+    </div>
+
+
+{% endblock %}
